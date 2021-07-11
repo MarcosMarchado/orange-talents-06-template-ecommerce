@@ -43,6 +43,9 @@ public class Produto {
     @ManyToOne
     private Usuario usuario;
 
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
+    private Set<Imagem> imagens = new HashSet<>();
+
     @Deprecated
     public Produto() {
     }
@@ -66,5 +69,17 @@ public class Produto {
 
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
 
+    public void associaImagensAoProduto(List<String> urlImages){
+        Set<Imagem> imagens = urlImages.stream().map(imagem -> new Imagem(imagem, this))
+                .collect(Collectors.toSet());
+        this.imagens.addAll(imagens);
+    }
+
+    public boolean validaSeUsuarioLogadoEDonoDoProduto(Usuario usuarioLogado) {
+        return this.usuario.equals(usuarioLogado);
+    }
 }
