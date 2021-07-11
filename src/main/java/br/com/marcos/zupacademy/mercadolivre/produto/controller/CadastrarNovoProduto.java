@@ -8,7 +8,7 @@ import br.com.marcos.zupacademy.mercadolivre.usuario.modelo.Usuario;
 import br.com.marcos.zupacademy.mercadolivre.validacao.NaoCadastraProdutoComCaracteristicasIguaisValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,9 +30,10 @@ public class CadastrarNovoProduto {
     }
 
     @PostMapping
-    public ResponseEntity<?> cadastrarNovoProduto(@RequestBody @Valid NovoProdutoRequest novoProdutoRequest){
-        Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Produto produto = novoProdutoRequest.converter(usuario, categoriaRepository);
+    public ResponseEntity<?> cadastrarNovoProduto(@RequestBody @Valid NovoProdutoRequest novoProdutoRequest,
+                                                  @AuthenticationPrincipal Usuario usuarioLogado){
+
+        Produto produto = novoProdutoRequest.converter(usuarioLogado, categoriaRepository);
         produtoRepository.save(produto);
         return ResponseEntity.ok().build();
     }
