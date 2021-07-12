@@ -69,8 +69,8 @@ public class Produto {
 
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public String getEmailDoDono(){
+        return this.usuario.getUsername();
     }
 
     public void associaImagensAoProduto(List<String> urlImages){
