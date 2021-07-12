@@ -24,6 +24,10 @@ public class Pergunta {
     @ManyToOne
     private Usuario usuarioLogado;
 
+    @Deprecated
+    public Pergunta (){
+    }
+
     public Pergunta(String titulo, Produto produto, Usuario usuarioLogado) {
 
         this.titulo = titulo;
@@ -38,5 +42,4 @@ public class Pergunta {
     public Produto getProduto() {
         return produto;
     }
-
 }

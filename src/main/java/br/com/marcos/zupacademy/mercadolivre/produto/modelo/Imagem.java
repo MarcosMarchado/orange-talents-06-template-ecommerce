@@ -22,4 +22,8 @@ public class Imagem {
         this.urlImagem = urlImagem;
         this.produto = produto;
     }
+
+    public String getUrlImagem() {
+        return urlImagem;
+    }
 }

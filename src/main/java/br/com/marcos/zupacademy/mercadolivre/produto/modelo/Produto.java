@@ -7,9 +7,7 @@ import br.com.marcos.zupacademy.mercadolivre.usuario.modelo.Usuario;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Entity
@@ -46,6 +44,12 @@ public class Produto {
     @OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
     private Set<Imagem> imagens = new HashSet<>();
 
+    @OneToMany(mappedBy = "produto")
+    private List<Pergunta> perguntas = new ArrayList<>();
+
+    @OneToMany(mappedBy = "produto")
+    private List<OpiniaoDoProduto> opinioes = new ArrayList<>();
+
     @Deprecated
     public Produto() {
     }
@@ -81,5 +85,37 @@ public class Produto {
 
     public boolean validaSeUsuarioLogadoEDonoDoProduto(Usuario usuarioLogado) {
         return this.usuario.equals(usuarioLogado);
+    }
+
+    public List<Pergunta> getPerguntas() {
+        return perguntas;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public BigDecimal getValor() {
+        return valor;
+    }
+
+    public Integer getQuantidade() {
+        return quantidade;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public Set<Caracteristicas> getCaracteristicas() {
+        return caracteristicas;
+    }
+
+    public Set<Imagem> getImagens() {
+        return imagens;
+    }
+
+    public List<OpiniaoDoProduto> getOpinioes() {
+        return opinioes;
     }
 }
