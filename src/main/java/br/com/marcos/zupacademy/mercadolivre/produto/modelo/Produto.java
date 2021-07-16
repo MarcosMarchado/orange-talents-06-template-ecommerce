@@ -7,7 +7,10 @@ import br.com.marcos.zupacademy.mercadolivre.usuario.modelo.Usuario;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
@@ -85,6 +88,14 @@ public class Produto {
 
     public boolean validaSeUsuarioLogadoEDonoDoProduto(Usuario usuarioLogado) {
         return this.usuario.equals(usuarioLogado);
+    }
+
+    public boolean abateDoEstoque(Integer quantidade){
+        if(quantidade <= this.quantidade){
+            this.quantidade -= quantidade;
+            return true;
+        }
+        return false;
     }
 
     public List<Pergunta> getPerguntas() {
